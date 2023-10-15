@@ -17,18 +17,22 @@ After(async function () {
   }
 });
 
-Given("user is on {string} page", async function (string) {
-  return await this.page.goto(`https://netology.ru${string}`, {
-    setTimeout: 20000,
-  });
+Given("the user is on the home page", async () => {
+  page = await browser.newPage();
+  await page.goto("http://qamid.tmweb.ru/client/index.php");
 });
 
-When("user search by {string}", async function (string) {
-  return await putText(this.page, "input", string);
+When("the user selects a movie", async () => {
+  await page.click(
+    "body > nav > a.page-nav__day.page-nav__day_chosen > span.page-nav__day-week"
+  );
+  await page.waitForSelector("span");
+  await page.click(
+    "body > main > section:nth-child(1) > div.movie-seances__hall > ul"
+  );
+  await page.waitForSelector("li");
 });
 
-Then("user sees the course suggested {string}", async function (string) {
-  const actual = await getText(this.page, "a[data-name]");
-  const expected = await string;
-  expect(actual).contains(expected);
+Then("the user sees the movie session starting at 10:00", async () => {
+  const expected = "Начало сеанса: 10:00";
 });

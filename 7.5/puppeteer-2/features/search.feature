@@ -1,5 +1,5 @@
-Feature: Search a course
-    Scenario: Should search by text
-        Given user is on "/navigation" page
-        When user search by "тестировщик"
-        Then user sees the course suggested "Тестировщик ПО"
+Feature: Successful booking
+  Scenario: Movie Selection
+    Given the user is on the home page
+    When the user selects a movie
+    Then the user sees the movie session starting at 10:00
